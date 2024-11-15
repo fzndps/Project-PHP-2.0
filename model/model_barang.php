@@ -15,7 +15,7 @@ class modelBarang {
   }
 
   public function addBarang($namaBarang, $hargaBarang){
-    $this->objBarang = new DataBarang($this->nextId++, $namaBarang, $hargaBarang);
+    $this->objBarang = new dataBarang($this->nextId++, $namaBarang, $hargaBarang);
     $this->barang[] = $this->objBarang;
     $this->saveToSession();
   }
@@ -52,6 +52,30 @@ class modelBarang {
     }
     return $listBarang;
   }
+
+  public function updateRole($idBarang, $namaBarang, $hargaBarang) {
+    foreach ($this->barang as $barangs) {
+        if ($barangs->idBarang == $idBarang) {
+            $barangs->namaBarang = $namaBarang;
+            $barangs->hargaBarang = $hargaBarang;
+            $this->saveToSession();
+            return true;
+        }
+    }
+    return false;
+}
+
+public function deleteRole($idBarang) {
+    foreach ($this->barang as $key => $barangs) {
+        if ($barangs->idBarang == $idBarang) {
+            unset($this->barang[$key]);
+            $this->barang = array_values($this->barang);
+            $this->saveToSession();
+            return true;
+        }
+    }
+    return false;
+}
 
 }
 ?>

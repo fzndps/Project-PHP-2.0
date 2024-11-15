@@ -3,7 +3,7 @@ require_once "model/model_role.php";
 require_once "model/model_barang.php";
 
 session_start();
-session_destroy();
+// session_destroy();
 
 $obj_role = new modelRole();
 $obj_barang = new modelBarang();
@@ -50,6 +50,7 @@ switch($model){
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
           $obj_role->updateRole($id,$name, $desc, $status);
+          
           header('location: index.php?modul=role');
         }else {
           include 'view/role_list.php';
@@ -60,10 +61,30 @@ switch($model){
         include 'view/role_list.php';
         break;
     }
-    case 'dataBarang':
-      $barangs = $obj_barang->getAllBarang();
-      print_r($barangs);
-      break;
+  case "dataBarang":
+
+    $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
+
+
+    switch ($insert) {
+      case 'addBarang':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+          $nama = $_POST['namaBarang'];
+          $harga = $_POST['hargaBarang'];
+          $obj_barang->addBarang($nama, $harga);
+          header('location: index.php?modul=dataBarang');
+        }else {
+          include 'view/barang_input.php';
+        }
+        break;
+      
+      default:
+        $barangs = $obj_barang->getAllBarang();
+        print_r($barangs);
+        include 'view/barang_list.php';
+        break;
+    }
+    break;
   
     // case 'transaksiInput':
     //   $barangs = $obj_barang->getAllBarangs();

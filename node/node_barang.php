@@ -1,5 +1,5 @@
 <?php
-class DataBarang{
+class dataBarang{
   public $idBarang;
   public $namaBarang;
   public $hargaBarang;
