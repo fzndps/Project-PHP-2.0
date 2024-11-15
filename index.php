@@ -64,7 +64,7 @@ switch($model){
   case "dataBarang":
 
     $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
-
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
 
     switch ($insert) {
       case 'addBarang':
@@ -77,10 +77,14 @@ switch($model){
           include 'view/barang_input.php';
         }
         break;
-      
+
+      case 'delete':
+        $obj_barang->deleteBarang($id);
+        header('location: index.php?modul=dataBarang');
+        break;
+
       default:
         $barangs = $obj_barang->getAllBarang();
-        print_r($barangs);
         include 'view/barang_list.php';
         break;
     }

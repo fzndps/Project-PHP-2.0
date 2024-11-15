@@ -4,7 +4,7 @@
             My Application
         </div>
         <div class="text-white">
-            <span class="mr-4">Username</span>
+            <span class="mr-4">Fizonenda</span>
             <span class="mr-4">Role</span>
             <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 Logout

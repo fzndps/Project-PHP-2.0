@@ -53,7 +53,7 @@ class modelBarang {
     return $listBarang;
   }
 
-  public function updateRole($idBarang, $namaBarang, $hargaBarang) {
+  public function updateBarang($idBarang, $namaBarang, $hargaBarang) {
     foreach ($this->barang as $barangs) {
         if ($barangs->idBarang == $idBarang) {
             $barangs->namaBarang = $namaBarang;
@@ -65,7 +65,7 @@ class modelBarang {
     return false;
 }
 
-public function deleteRole($idBarang) {
+public function deleteBarang($idBarang) {
     foreach ($this->barang as $key => $barangs) {
         if ($barangs->idBarang == $idBarang) {
             unset($this->barang[$key]);

@@ -49,10 +49,10 @@
                         <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($barang->hargaBarang);?></td>
                         <td class="w-1/6 py-3 px-4">
                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                <a href="index.php?modul=dataBarang=update&id=<?php echo htmlspecialchars($barang->idBarang); ?>">Update</a>
+                                <a href="index.php?modul=dataBarang&insert=update&id=<?php echo htmlspecialchars($barang->idBarang); ?>">Update</a>
                             </button>
                             <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                <a href="index.php?modul=dataBarang=delete&id=<?php echo htmlspecialchars($barang->idBarang); ?>">Delete</a>
+                                <a href="index.php?modul=dataBarang&insert=delete&id=<?php echo htmlspecialchars($barang->idBarang); ?>">Delete</a>
                             </button>
                         </td>
                     </tr>
