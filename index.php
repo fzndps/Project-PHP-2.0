@@ -1,7 +1,13 @@
 <?php
 require_once "model/model_role.php";
+require_once "model/model_barang.php";
+
 session_start();
+session_destroy();
+
 $obj_role = new modelRole();
+$obj_barang = new modelBarang();
+
 
 if (isset($_GET['modul'])){
   $model = $_GET['modul'];
@@ -54,4 +60,17 @@ switch($model){
         include 'view/role_list.php';
         break;
     }
+    case 'dataBarang':
+      $barangs = $obj_barang->getAllBarang();
+      print_r($barangs);
+      break;
+  
+    // case 'transaksiInput':
+    //   $barangs = $obj_barang->getAllBarangs();
+    //   $customers = $obj_customer->getAllCustomer();
+    //   include 'view/transaksi_input.php';
+    //   break;
+    // case 'transaksiList':
+    //   include 'view/transaksi_list.php';
+    //   break;
 }
