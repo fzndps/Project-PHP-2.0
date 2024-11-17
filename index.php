@@ -83,6 +83,21 @@ switch($model){
         header('location: index.php?modul=dataBarang');
         break;
 
+      case 'updateBarang':
+        $barang = $obj_barang->getBarangById($id);
+        include 'view/barang_edit.php';
+        break;
+
+      case 'editBarang':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+          $nama = $_POST['namaBarang'];
+          $harga = $_POST['hargaBarang'];
+          $obj_barang->updateBarang($id, $nama, $harga);
+          header('location: index.php?modul=dataBarang');
+        }else {
+          include 'view/barang_list.php';
+        }
+        break;
       default:
         $barangs = $obj_barang->getAllBarang();
         include 'view/barang_list.php';
