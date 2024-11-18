@@ -44,7 +44,7 @@
                     <tbody class="text-gray-700">
                     <!-- Static Data Rows -->
                      <?php foreach($roles as $role){?>
-                    <tr class="text-center">
+                    <tr class="text-center border-b border-gray-200 pb-1">
                         <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($role->role_id);?></td>
                         <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($role->role_name);?></td>
                         <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($role->role_description);?></td>

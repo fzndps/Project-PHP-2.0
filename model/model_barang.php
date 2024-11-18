@@ -14,8 +14,8 @@ class modelBarang {
     }
   }
 
-  public function addBarang($namaBarang, $hargaBarang){
-    $this->objBarang = new dataBarang($this->nextId++, $namaBarang, $hargaBarang);
+  public function addBarang($namaBarang, $hargaBarang, $totalBarang){
+    $this->objBarang = new dataBarang($this->nextId++, $namaBarang, $hargaBarang, $totalBarang);
     $this->barang[] = $this->objBarang;
     $this->saveToSession();
   }
@@ -29,11 +29,11 @@ class modelBarang {
   }
 
   public function initializeDefaultBarang(){
-    $this->addBarang("Kulkas", 1000000);
-    $this->addBarang("Kursi", 50000);
-    $this->addBarang("Meja", 450000);
-    $this->addBarang("Kasur", 800000);
-    $this->addBarang("Lemari", 550000);
+    $this->addBarang("Kulkas", 1000000, 5);
+    $this->addBarang("Kursi", 50000, 3);
+    $this->addBarang("Meja", 450000, 3);
+    $this->addBarang("Kasur", 800000, 4);
+    $this->addBarang("Lemari", 550000, 7);
   }
 
   public function getBarangById ($id){
@@ -53,11 +53,12 @@ class modelBarang {
     return $listBarang;
   }
 
-  public function updateBarang($idBarang, $namaBarang, $hargaBarang) {
+  public function updateBarang($idBarang, $namaBarang, $hargaBarang, $totalBarang) {
     foreach ($this->barang as $barangs) {
         if ($barangs->idBarang == $idBarang) {
             $barangs->namaBarang = $namaBarang;
             $barangs->hargaBarang = $hargaBarang;
+            $barangs->totalBarang = $totalBarang;
             $this->saveToSession();
             return true;
         }

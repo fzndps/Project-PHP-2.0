@@ -35,7 +35,13 @@
                     <div class="mb-4">
                         <label for="hargaBarang" class="block text-gray-700 text-sm font-bold mb-2">Harga Barang:</label>
                         <input id="hargaBarang" name="hargaBarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Harga Barang" required
-                            value="<?php echo htmlspecialchars($barang->hargaBarang) ?>"></input>
+                            value="<?php echo htmlspecialchars($barang->hargaBarang) ?>">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="totalBarang" class="block text-gray-700 text-sm font-bold mb-2">Jumlah Barang :</label>
+                        <input type="number" id="totalBarang" name="totalBarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Total Barang" required value="<?php echo htmlspecialchars($barang->totalBarang) ?>">
+
                     </div>
 
                     <!-- Submit Button -->

@@ -71,7 +71,8 @@ switch($model){
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           $nama = $_POST['namaBarang'];
           $harga = $_POST['hargaBarang'];
-          $obj_barang->addBarang($nama, $harga);
+          $total = $_POST['totalBarang'];
+          $obj_barang->addBarang($nama, $harga, $total);
           header('location: index.php?modul=dataBarang');
         }else {
           include 'view/barang_input.php';
@@ -92,7 +93,8 @@ switch($model){
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           $nama = $_POST['namaBarang'];
           $harga = $_POST['hargaBarang'];
-          $obj_barang->updateBarang($id, $nama, $harga);
+          $total = $_POST['totalBarang'];
+          $obj_barang->updateBarang($id, $nama, $harga, $total);
           header('location: index.php?modul=dataBarang');
         }else {
           include 'view/barang_list.php';

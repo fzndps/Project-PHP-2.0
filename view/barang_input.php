@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Barang</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
@@ -31,18 +33,14 @@
                     <!-- Role Deskripsi -->
                     <div class="mb-4">
                         <label for="hargaBarang" class="block text-gray-700 text-sm font-bold mb-2">Harga:</label>
-                        <input id="hargaBarang" name="hargaBarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Harga Barang" required></input>
+                        <input id="hargaBarang" name="hargaBarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Harga Barang" required>
                     </div>
 
                     <!-- Role Status -->
-                    <!-- <div class="mb-4">
-                        <label for="role_status" class="block text-gray-700 text-sm font-bold mb-2">Role Status:</label>
-                        <select id="role_status" name="role_status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                            <option value="">Pilih Status</option>
-                            <option value=1>Active</option>
-                            <option value=0>Inactive</option>
-                        </select>
-                    </div> -->
+                    <div class="mb-4">
+                        <label for="totalBarang" class="block text-gray-700 text-sm font-bold mb-2">Jumlah Barang :</label>
+                        <input type="number" id="totalBarang" name="totalBarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Total Barang" required>
+                    </div>
 
                     <!-- Submit Button -->
                     <div class="flex items-center justify-between">
@@ -56,4 +54,5 @@
     </div>
 
 </body>
+
 </html>
