@@ -66,16 +66,36 @@ class modelBarang {
     return false;
 }
 
+// public function deleteBarang($idBarang) {
+//     foreach ($this->barang as $key => $barangs) {
+//         if ($barangs->idBarang == $idBarang) {
+//             unset($this->barang[$key]);
+//             $this->barang = array_values($this->barang);
+//             $this->saveToSession();
+//             return true;
+//         }
+//     }
+//     return false;
+// }
+
 public function deleteBarang($idBarang) {
-    foreach ($this->barang as $key => $barangs) {
-        if ($barangs->idBarang == $idBarang) {
-            unset($this->barang[$key]);
-            $this->barang = array_values($this->barang);
-            $this->saveToSession();
-            return true;
-        }
-    }
-    return false;
+  foreach ($this->barang as $key => $barangs) {
+      if ($barangs->idBarang == $idBarang) {
+          unset($this->barang[$key]); 
+          $this->barang = array_values($this->barang); 
+          $this->reorderRoleIds();
+          $this->saveToSession();
+          return true;
+      }
+  }
+  return false;
+}
+
+private function reorderRoleIds() {
+  foreach ($this->barang as $index => $barangs) {
+      $barangs->idBarang = $index + 1; 
+  }
+  $this->nextId = count($this->barang) + 1; 
 }
 
 }

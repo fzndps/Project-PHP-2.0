@@ -105,14 +105,7 @@ switch($model){
         include 'view/barang_list.php';
         break;
     }
+  case 'dataUser':
+    include 'models/model_user.php';
     break;
-  
-    // case 'transaksiInput':
-    //   $barangs = $obj_barang->getAllBarangs();
-    //   $customers = $obj_customer->getAllCustomer();
-    //   include 'view/transaksi_input.php';
-    //   break;
-    // case 'transaksiList':
-    //   include 'view/transaksi_list.php';
-    //   break;
 }
