@@ -41,16 +41,29 @@ public function addUser($username, $password, $role) {
     return $this->users;
   }
 
-  public function deleteUser($user){
-    if ($user != null){
-      $key = array_search($user, $this->users);
-      unset($this->users[$key]);
-      $this->users = array_values($this->users);
-      $this->saveToSession();
-      return true;
+  public function deleteUser($id) {
+    foreach ($this->users as $key => $user) {
+        if ($user->idUser == $id) {
+            unset($this->users[$key]);
+            $this->users = array_values($this->users); // Re-index array
+            $this->saveToSession();
+            return true;
+        }
     }
     return false;
-  }
+}
+
+
+  // public function deleteUser($user){
+  //   if ($user != null){
+  //     $key = array_search($user, $this->users);
+  //     unset($this->users[$key]);
+  //     $this->users = array_values($this->users);
+  //     $this->saveToSession();
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   public function updateUser($idUser, $username, $password, $role){
     $userLokal = $this->getUserByid($idUser);

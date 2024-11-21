@@ -128,9 +128,7 @@ switch ($model) {
         break;
 
       case 'deleteUser':
-        if ($id != null) {
-          $obj_user->deleteUser($id);
-        }
+        $obj_user->deleteUser($id);
         header('Location: index.php?modul=dataUser');
         break;
 
