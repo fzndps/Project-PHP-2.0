@@ -1,21 +1,23 @@
 <?php
 require_once "model/model_role.php";
 require_once "model/model_barang.php";
+require_once "model/model_user.php";
 
 session_start();
 // session_destroy();
 
 $obj_role = new modelRole();
 $obj_barang = new modelBarang();
+$obj_user = new modelUser();
 
 
-if (isset($_GET['modul'])){
+if (isset($_GET['modul'])) {
   $model = $_GET['modul'];
-}else {
+} else {
   $model = "dashboard";
 }
 
-switch($model){
+switch ($model) {
   case "dashboard":
     include 'view/kosong.php';
     break;
@@ -24,15 +26,15 @@ switch($model){
     $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
     $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-    switch($fitur){
+    switch ($fitur) {
       case 'add':
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $name = $_POST['role_name'];
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
           $obj_role->addRole($name, $desc, $status);
           header('location: index.php?modul=role');
-        }else {
+        } else {
           include 'view/role_input.php';
         }
         break;
@@ -45,14 +47,14 @@ switch($model){
         include 'view/role_edit.php';
         break;
       case 'edit':
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $name = $_POST['role_name'];
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
-          $obj_role->updateRole($id,$name, $desc, $status);
-          
+          $obj_role->updateRole($id, $name, $desc, $status);
+
           header('location: index.php?modul=role');
-        }else {
+        } else {
           include 'view/role_list.php';
         }
         break;
@@ -68,13 +70,13 @@ switch($model){
 
     switch ($insert) {
       case 'addBarang':
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $nama = $_POST['namaBarang'];
           $harga = $_POST['hargaBarang'];
           $total = $_POST['totalBarang'];
           $obj_barang->addBarang($nama, $harga, $total);
           header('location: index.php?modul=dataBarang');
-        }else {
+        } else {
           include 'view/barang_input.php';
         }
         break;
@@ -90,13 +92,13 @@ switch($model){
         break;
 
       case 'editBarang':
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $nama = $_POST['namaBarang'];
           $harga = $_POST['hargaBarang'];
           $total = $_POST['totalBarang'];
           $obj_barang->updateBarang($id, $nama, $harga, $total);
           header('location: index.php?modul=dataBarang');
-        }else {
+        } else {
           include 'view/barang_list.php';
         }
         break;
@@ -106,6 +108,29 @@ switch($model){
         break;
     }
   case 'dataUser':
-    include 'models/model_user.php';
-    break;
+
+    $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+
+    switch ($insert) {
+      case 'addUser':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $username = $_POST['username'];
+          $password = $_POST['password'];
+          $role_name = $_POST['role_name'];
+          $role = $obj_role->getRoleByName($role_name); 
+          $obj_user->addUser($username, $password, $role); 
+
+          header('location: index.php?modul=dataUser');
+        } else {
+          $roles = $obj_role->getAllRoles();
+          include 'view/user_input.php';
+        }
+        break;
+
+      default:
+        $users = $obj_user->getAllUsers();
+        include 'view/user_list.php';
+        break;
+    }
 }

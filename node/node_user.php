@@ -1,15 +1,17 @@
 <?php
   class user {
-      public $user_id;
+      public $idUser;
       public $username;
       public $password;
       public $role;
+      // public $role_name;
   
-      function __construct($user_id, $username, $password, $role) {
-          $this->user_id = $user_id;
+      function __construct($idUser, $username, $password, $role) {
+          $this->idUser = $idUser;
           $this->username = $username;
           $this->password = $password;
           $this->role = $role;
+          // $this->role_name = $role_name;
       }
   }
 ?>
