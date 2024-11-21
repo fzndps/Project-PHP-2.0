@@ -118,13 +118,40 @@ switch ($model) {
           $username = $_POST['username'];
           $password = $_POST['password'];
           $role_name = $_POST['role_name'];
-          $role = $obj_role->getRoleByName($role_name); 
-          $obj_user->addUser($username, $password, $role); 
-
+          $role = $obj_role->getRoleByName($role_name);
+          $obj_user->addUser($username, $password, $role);
           header('location: index.php?modul=dataUser');
         } else {
           $roles = $obj_role->getAllRoles();
           include 'view/user_input.php';
+        }
+        break;
+
+      case 'deleteUser':
+        if ($id != null) {
+          $obj_user->deleteUser($id);
+        }
+        header('Location: index.php?modul=dataUser');
+        break;
+
+      case 'updateUser':
+        $roles = $obj_role->getAllRoles();
+        $user = $obj_user->getUserByid($id);
+        include 'view/user_edit.php';
+        break;
+
+      case 'editUser':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $username = $_POST['username'];
+          $password = $_POST['password'];
+          $role_name = $_POST['role_name'];
+          $role = $obj_role->getRoleByName($role_name); 
+          $obj_user->updateUser($id, $username, $password, $role); 
+          header('location: index.php?modul=dataUser');
+        } else {
+          $roles = $obj_role->getAllRoles();
+          $user = $obj_user->getUserByid($id); 
+          include 'view/user_list.php';
         }
         break;
 

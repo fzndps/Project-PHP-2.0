@@ -55,13 +55,15 @@ public function addUser($username, $password, $role) {
   public function updateUser($idUser, $username, $password, $role){
     $userLokal = $this->getUserByid($idUser);
     if($userLokal != null){
-      $userLokal->username = $username;
-      $userLokal->password = $password;
-      $userLokal->role = $role;
-      return true;
+        $userLokal->username = $username;
+        $userLokal->password = $password;
+        $userLokal->role = $role;
+        $this->saveToSession(); 
+        return true;
     }
     return false;
-  }
+}
+
 
   public function getUserByid($idUser) {
     foreach ($this->users as $user){
