@@ -17,9 +17,10 @@
         <?php include 'include/sidebar.php'; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 flex justify-center items-center">
             <!-- Your main content goes here -->
-            
+             <!-- <h1>Ganyang fufufafa?</h1> -->
+            <!-- <img src="view/include/27725-gibran-rakabuming-raka-di-debat-cawapres-removebg-preview.png" alt="" class="h-64 w-auto"> -->
         </div>
     </div>
 

@@ -17,19 +17,21 @@ class modelUser
     }
   }
 
-  private function initializeDefaultUser() {
+  private function initializeDefaultUser()
+  {
     $obj_role2 = new role(2, "Kasir", "Kasir", 1);
     $obj_role1 = new role(1, "Admin", "Administration", 1);
     $this->addUser('rusdi@gmail.com', '666', $obj_role2);
     $this->addUser('amba@gmail.com', '666', $obj_role1);
-}
+  }
 
 
-public function addUser($username, $password, $role) {
-  $user = new user($this->nextId++, $username, $password, $role);
-  $this->users[] = $user;
-  $this->saveToSession();
-}
+  public function addUser($username, $password, $role)
+  {
+    $user = new user($this->nextId++, $username, $password, $role);
+    $this->users[] = $user;
+    $this->saveToSession();
+  }
 
   private function saveToSession()
   {
@@ -41,17 +43,18 @@ public function addUser($username, $password, $role) {
     return $this->users;
   }
 
-  public function deleteUser($id) {
+  public function deleteUser($id)
+  {
     foreach ($this->users as $key => $user) {
-        if ($user->idUser == $id) {
-            unset($this->users[$key]);
-            $this->users = array_values($this->users); // Re-index array
-            $this->saveToSession();
-            return true;
-        }
+      if ($user->idUser == $id) {
+        unset($this->users[$key]);
+        $this->users = array_values($this->users); // Re-index array
+        $this->saveToSession();
+        return true;
+      }
     }
     return false;
-}
+  }
 
 
   // public function deleteUser($user){
@@ -65,22 +68,40 @@ public function addUser($username, $password, $role) {
   //   return false;
   // }
 
-  public function updateUser($idUser, $username, $password, $role){
-    $userLokal = $this->getUserByid($idUser);
-    if($userLokal != null){
-        $userLokal->username = $username;
-        $userLokal->password = $password;
-        $userLokal->role = $role;
-        $this->saveToSession(); 
+
+  public function updateUser($idUser, $username, $password, $role)
+  {
+    foreach ($this->users as &$user) { // Gunakan referensi untuk mengupdate langsung
+      if ($user->idUser == $idUser) {
+        $user->username = $username;
+        $user->password = $password;
+        $user->role = $role;
+        $this->saveToSession(); // Simpan perubahan ke session
         return true;
+      }
     }
-    return false;
-}
+    return false; // Jika user dengan ID tidak ditemukan
+  }
 
 
-  public function getUserByid($idUser) {
-    foreach ($this->users as $user){
-      if ($user->idUser == $idUser){
+  // public function updateUser($idUser, $username, $password, $role)
+  // {
+  //   $userLokal = $this->getUserByid($idUser);
+  //   if ($userLokal != null) {
+  //     $userLokal->username = $username;
+  //     $userLokal->password = $password;
+  //     $userLokal->role = $role;
+  //     $this->saveToSession();
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+
+  public function getUserByid($idUser)
+  {
+    foreach ($this->users as $user) {
+      if ($user->idUser == $idUser) {
         return $user;
       }
     }
@@ -97,4 +118,3 @@ public function addUser($username, $password, $role) {
   // }
 
 }
-

@@ -38,29 +38,34 @@ switch ($model) {
           include 'view/role_input.php';
         }
         break;
+
       case 'delete':
         $obj_role->deleteRole($id);
         header('location: index.php?modul=role');
         break;
+
       case 'update':
         $role = $obj_role->getRoleById($id);
-        include 'view/role_edit.php';
+        include 'view/role_list2.php';
         break;
+
       case 'edit':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $id = $_POST['role_id'];
           $name = $_POST['role_name'];
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
           $obj_role->updateRole($id, $name, $desc, $status);
-
           header('location: index.php?modul=role');
         } else {
-          include 'view/role_list.php';
+          $roles = $obj_role->getAllRoles();
+          include 'view/role_list2.php';
         }
         break;
+
       default:
         $roles = $obj_role->getAllRoles();
-        include 'view/role_list.php';
+        include 'view/role_list2.php';
         break;
     }
   case "dataBarang":
@@ -88,23 +93,24 @@ switch ($model) {
 
       case 'updateBarang':
         $barang = $obj_barang->getBarangById($id);
-        include 'view/barang_edit.php';
+        include 'view/barang_list2.php';
         break;
 
       case 'editBarang':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $id = $_POST['idBarang'];
           $nama = $_POST['namaBarang'];
           $harga = $_POST['hargaBarang'];
           $total = $_POST['totalBarang'];
           $obj_barang->updateBarang($id, $nama, $harga, $total);
           header('location: index.php?modul=dataBarang');
         } else {
-          include 'view/barang_list.php';
+          include 'view/barang_list2.php';
         }
         break;
       default:
         $barangs = $obj_barang->getAllBarang();
-        include 'view/barang_list.php';
+        include 'view/barang_list2.php';
         break;
     }
   case 'dataUser':
@@ -123,6 +129,9 @@ switch ($model) {
           header('location: index.php?modul=dataUser');
         } else {
           $roles = $obj_role->getAllRoles();
+          echo "<pre>";
+          print_r($roles);
+          echo "</pre>";
           include 'view/user_input.php';
         }
         break;
@@ -135,27 +144,35 @@ switch ($model) {
       case 'updateUser':
         $roles = $obj_role->getAllRoles();
         $user = $obj_user->getUserByid($id);
-        include 'view/user_edit.php';
+        include 'view/user_list2.php';
         break;
 
       case 'editUser':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $idUser = $_POST['idUser'];
           $username = $_POST['username'];
           $password = $_POST['password'];
           $role_name = $_POST['role_name'];
-          $role = $obj_role->getRoleByName($role_name); 
-          $obj_user->updateUser($id, $username, $password, $role); 
-          header('location: index.php?modul=dataUser');
+          $role = $obj_role->getRoleByName($role_name);
+
+          $updated = $obj_user->updateUser($idUser, $username, $password, $role);
+          if ($updated) {
+            header("Location: index.php?modul=dataUser&success=updated");
+          } else {
+            echo "Failed to update user.";
+          }
         } else {
           $roles = $obj_role->getAllRoles();
-          $user = $obj_user->getUserByid($id); 
-          include 'view/user_list.php';
+          $user = $obj_user->getUserByid($id);
+          include 'view/user_list2.php';
         }
         break;
 
+
       default:
+        $roles = $obj_role->getAllRoles();
         $users = $obj_user->getAllUsers();
-        include 'view/user_list.php';
+        include 'view/user_list2.php';
         break;
     }
 }
