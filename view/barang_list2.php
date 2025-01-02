@@ -134,10 +134,10 @@
             <tbody class="text-gray-700">
               <?php foreach ($barangs as $barang) { ?>
                 <tr class="text-center border-b border-gray-200 pb-1">
-                  <td class="py-3 px-4 text-black-600"><?php echo htmlspecialchars($barang->idBarang); ?></td>
-                  <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($barang->namaBarang); ?></td>
-                  <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($barang->hargaBarang); ?></td>
-                  <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($barang->totalBarang); ?></td>
+                  <td class="py-3 px-4 text-black-600 border-r border-gray-300"><?php echo htmlspecialchars($barang->idBarang); ?></td>
+                  <td class="w-1/4 py-3 border-r border-gray-300 px-4"><?php echo htmlspecialchars($barang->namaBarang); ?></td>
+                  <td class="w-1/3 py-3 border-r border-gray-300 px-4"><?php echo htmlspecialchars($barang->hargaBarang); ?></td>
+                  <td class="w-1/6 py-3 border-r border-gray-300 px-4"><?php echo htmlspecialchars($barang->totalBarang); ?></td>
                   <td class="w-1/6 py-3 px-4">
                     <button
                       class="bg-sky-600 hover:bg-sky-800 text-white font-bold py-1 px-2 rounded mr-2 openUpdateModal"

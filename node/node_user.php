@@ -4,14 +4,14 @@
       public $username;
       public $password;
       public $role;
-      // public $role_name;
+      public $name;
   
-      function __construct($idUser, $username, $password, $role) {
+      function __construct($idUser, $username, $password, $role, $nama) {
           $this->idUser = $idUser;
           $this->username = $username;
           $this->password = $password;
           $this->role = $role;
-          // $this->role_name = $role_name;
+          $this->name = $nama;
       }
   }
 ?>

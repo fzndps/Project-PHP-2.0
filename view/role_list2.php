@@ -93,7 +93,7 @@
               </div>
 
               <!-- Modal Body -->
-              <form id="updateUserForm" action="index.php?modul=role&fitur=edit" method="POST">
+              <form id="updateUserForm" action="index.php?modul=role&fitur=edit&id" method="POST">
                 <input type="hidden" id="updateRole_id" name="role_id">
                 <div class="mb-4">
                   <label for="updateRole_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Role</label>
@@ -131,7 +131,7 @@
         <div class="bg-white shadow-md rounded my-6">
           <table class="min-w-full bg-cyan-50 grid-cols-1">
             <thead class="bg-gray-800 text-white">
-              <tr>
+              <tr >
                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">Role ID</th>
                 <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Nama Role</th>
                 <th class="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Deskripsi Role</th>
@@ -139,13 +139,13 @@
                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
               </tr>
             </thead>
-            <tbody class="text-gray-700">
+            <tbody class="text-gray-700 ">
               <?php foreach ($roles as $role) { ?>
-                <tr class="text-center border-b border-gray-200 pb-1">
-                  <td class="py-3 px-4 text-black-600"><?php echo htmlspecialchars($role->role_id); ?></td>
-                  <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($role->role_name); ?></td>
-                  <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($role->role_description); ?></td>
-                  <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($role->role_status); ?></td>
+                <tr class="text-center border-b border-gray-300 pb-1">
+                  <td class="py-3 px-4 text-black-600 border-r border-gray-300"><?php echo htmlspecialchars($role->role_id); ?></td>
+                  <td class="w-1/4 py-3 px-4 border-r border-gray-300"><?php echo htmlspecialchars($role->role_name); ?></td>
+                  <td class="w-1/3 py-3 px-4 border-r border-gray-300"><?php echo htmlspecialchars($role->role_description); ?></td>
+                  <td class="w-1/6 py-3 px-4 border-r border-gray-300"><?php echo htmlspecialchars($role->role_status); ?></td>
                   <td class="w-1/6 py-3 px-4">
                     <button
                       class="bg-sky-600 hover:bg-sky-800 text-white font-bold py-1 px-2 rounded mr-2 openUpdateModal"

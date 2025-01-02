@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaksi Baru</title>
-    <!--    <link href="./Views/output.css" rel="stylesheet">-->
+<!--    <link href="./Views/output.css" rel="stylesheet">-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
@@ -31,11 +29,11 @@
                         <?php
                         // Ambil data customer dari database atau array
                         // Contoh data customer
-                        //                        $customers = ['John Doe', 'Jane Smith', 'Robert Brown'];
-                        //                        print_r($customers);
+                        // $customers = ['John Doe', 'Jane Smith', 'Robert Brown'];
+//                        print_r($customers);
                         if (!empty($customers)) {
                             foreach ($customers as $customer) {
-                                echo "<option value='{$customer->nama}'>{$customer->nama}</option>";
+                                echo "<option value='$customer->name'>$customer->name</option>";
                             }
                         }
                         ?>
@@ -48,19 +46,17 @@
                     <div class="barang-item mb-4">
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label for="barangs[]" class="block text-gray-700">Barang</label>
-                                <select name="barangs[]" class="mt-1 p-2 border border-gray-300 rounded w-full" required>
+                                <label for="barang[]" class="block text-gray-700">Barang</label>
+                                <select name="barang[]" class="mt-1 p-2 border border-gray-300 rounded w-full" required>
                                     <option value="" disabled selected>Pilih Barang</option>
                                     <?php
-                                    //$barangList = [
-                                    //    ['id' => 1, 'name' => 'Barang A', 'harga' => 50000],
-                                    //    ['id' => 2, 'name' => 'Barang B', 'harga' => 75000],
-                                    //    ['id' => 3, 'name' => 'Barang C', 'harga' => 120000],
-                                    //];
-                                    if (!empty($barangs)) {
-                                        foreach ($barangs as $barang) {
-                                            echo "<option value='{$barang->idBarang}'>{$barang->namaBarang} - Rp{$barang->hargaBarang}</option>";
-                                        }
+//                                    $barangList = [
+//                                        ['id' => 1, 'name' => 'Barang A', 'harga' => 50000],
+//                                        ['id' => 2, 'name' => 'Barang B', 'harga' => 75000],
+//                                        ['id' => 3, 'name' => 'Barang C', 'harga' => 120000],
+//                                    ];
+                                    foreach ($barangs as $barang) {
+                                        echo "<option value='{$barang->idBarang}'>{$barang->namaBarang} - Rp{$barang->hargaBarang}</option>";
                                     }
                                     ?>
                                 </select>
@@ -88,7 +84,7 @@
         document.getElementById('addBarangBtn').addEventListener('click', function() {
             const barangContainer = document.getElementById('barangContainer');
             const newBarang = document.querySelector('.barang-item').cloneNode(true);
-            newBarang.querySelector('select[name="barangs[]"]').value = '';
+            newBarang.querySelector('select[name="barang[]"]').value = '';
             newBarang.querySelector('input[name="jumlah[]"]').value = '';
             barangContainer.appendChild(newBarang);
         });
@@ -104,5 +100,4 @@
         });
     </script>
 </body>
-
 </html>

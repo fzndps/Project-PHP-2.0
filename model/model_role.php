@@ -90,7 +90,7 @@ class modelRole
   public function getRoleByName($role_name)
   {
     foreach ($this->roles as $role) {
-      if ($role->role_name == $role_name) {
+      if ($role->role_name === $role_name) {
         return $role;
       }
     }

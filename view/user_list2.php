@@ -64,10 +64,12 @@
                   <label for="role_name" class="block text-gray-700 text-sm font-bold mb-2">Role Name:</label>
                   <select id="role_name" name="role_name"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                    <option value="">Pilih Status</option>
+                    <option value="">Pilih Role</option>
                     <?php foreach ($roles as $role) { ?>
-                      <option value=<?php echo htmlspecialchars($role->role_name) ?>><?php echo htmlspecialchars($role->role_name) ?></option>
-                    <?php print_r($role);
+                      <option value="<?php echo htmlspecialchars($role->role_name); ?>">
+                        <?php echo htmlspecialchars($role->role_name); ?>
+                      </option>
+                    <?php
                     } ?>
                   </select>
                 </div>
@@ -112,13 +114,13 @@
                   <label for="updateRole" class="block text-gray-700 text-sm font-bold mb-2">Role Name:</label>
                   <select id="updateRole" name="role_name"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                    <option value="">Pilih Status</option>
+                    <option value="">Pilih Role</option>
                     <?php foreach ($roles as $role) { ?>
-                      <option value="<?php echo htmlspecialchars($role->role_name); ?>"
-                        <?php echo $role->role_name == $role->role_name ? 'selected' : ''; ?>>
+                      <option value="<?php echo htmlspecialchars($role->role_name); ?>">
                         <?php echo htmlspecialchars($role->role_name); ?>
                       </option>
-                    <?php } ?>
+                    <?php
+                    } ?>
                   </select>
                 </div>
                 <div class="flex justify-end">
@@ -148,9 +150,9 @@
             <tbody class="text-gray-700">
               <?php foreach ($users as $user) { ?>
                 <tr class="text-center border-b border-gray-200 pb-1">
-                  <td class="py-3 px-4 text-black-600"><?php echo htmlspecialchars($user->idUser); ?></td>
-                  <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($user->username); ?></td>
-                  <td class="w-1/3 py-3 px-4">
+                  <td class="py-3 px-4 text-black-600 border-r border-gray-300"><?php echo htmlspecialchars($user->idUser); ?></td>
+                  <td class="w-1/4 py-3 border-r border-gray-300 px-4"><?php echo htmlspecialchars($user->username); ?></td>
+                  <td class="w-1/3 py-3 border-r border-gray-300 px-4">
                     <?php if (isset($_GET['viewPassword']) && $_GET['viewPassword'] == $user->idUser) { ?>
                       <?php echo htmlspecialchars($user->password); ?>
                     <?php } else { ?>
@@ -158,7 +160,7 @@
                         class="text-blue-600 underline">Lihat</a>
                     <?php } ?>
                   </td>
-                  <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($user->role->role_name); ?></td>
+                  <td class="w-1/6 py-3 border-r border-gray-300 px-4"><?php echo htmlspecialchars($user->role->role_name); ?></td>
                   <td class="w-1/6 py-3 px-4">
                     <button
                       class="bg-sky-600 hover:bg-sky-800 text-white font-bold py-1 px-2 rounded mr-2 openUpdateModal"

@@ -19,16 +19,17 @@ class modelUser
 
   private function initializeDefaultUser()
   {
-    $obj_role2 = new role(2, "Kasir", "Kasir", 1);
+    $obj_role2 = new role(2, "Kasir", "Kasir", 2);
     $obj_role1 = new role(1, "Admin", "Administration", 1);
-    $this->addUser('rusdi@gmail.com', '666', $obj_role2);
-    $this->addUser('amba@gmail.com', '666', $obj_role1);
+    $this->addUser('amba@gmail.com', '666', $obj_role1, "krisna");
+    $this->addUser('ironi@gmail.com', '666', $obj_role1, "andi");
+    $this->addUser('rusdi@gmail.com', '666', $obj_role2, "aan");
   }
 
 
-  public function addUser($username, $password, $role)
+  public function addUser($username, $password, $role, $nama)
   {
-    $user = new user($this->nextId++, $username, $password, $role);
+    $user = new user($this->nextId++, $username, $password, $role, $nama);
     $this->users[] = $user;
     $this->saveToSession();
   }
@@ -69,13 +70,14 @@ class modelUser
   // }
 
 
-  public function updateUser($idUser, $username, $password, $role)
+  public function updateUser($idUser, $username, $password, $role, $nama)
   {
     foreach ($this->users as &$user) { // Gunakan referensi untuk mengupdate langsung
       if ($user->idUser == $idUser) {
         $user->username = $username;
         $user->password = $password;
         $user->role = $role;
+        $user->nama = $nama;
         $this->saveToSession(); // Simpan perubahan ke session
         return true;
       }
@@ -108,13 +110,13 @@ class modelUser
     return null;
   }
 
-  // public function getUserByName($role_name){
-  //   foreach ($this->users as $user){
-  //     if ($user->role_name == $role_name){
-  //       return $user;
-  //         }
-  //     }
-  //   return null;
-  // }
+  public function getUserByName($name){
+    foreach ($this->users as $user){
+      if ($user->name == $name){
+        return $user;
+          }
+      }
+    return null;
+  }
 
 }

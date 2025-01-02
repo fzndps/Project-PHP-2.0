@@ -1,23 +1,31 @@
 <?php
-require_once "model/model_role.php";
-require_once "model/model_barang.php";
-require_once "model/model_user.php";
-
+require_once "controllers/role_controller.php";
+require_once "controllers/barang_controller.php";
+// require_once "model/model_barang.php";
+require_once "controllers/user_controller.php";
+require_once "controllers/transaksi_controller.php";
+require_once "controllers/auth_controller.php";
 session_start();
 // session_destroy();
 
-$obj_role = new modelRole();
-$obj_barang = new modelBarang();
-$obj_user = new modelUser();
-
+$obj_role = new ControllerRole();
+$obj_user = new ControllerUser();
+$obj_barang = new ControllerBarang();
+// $obj_barang = new modelBarang();
+$obj_transaksi = new ControllerTransaksi();
 
 if (isset($_GET['modul'])) {
-  $model = $_GET['modul'];
+  $modul = $_GET['modul'];
 } else {
-  $model = "dashboard";
+  $modul = "dashboard";
 }
 
-switch ($model) {
+if (!isset($_SESSION['user']) && $modul != 'auth') {
+  header('Location: index.php?modul=auth&action=login');
+  exit;
+}
+
+switch ($modul) {
   case "dashboard":
     include 'view/kosong.php';
     break;
@@ -33,20 +41,15 @@ switch ($model) {
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
           $obj_role->addRole($name, $desc, $status);
-          header('location: index.php?modul=role');
-        } else {
-          include 'view/role_input.php';
         }
         break;
 
       case 'delete':
         $obj_role->deleteRole($id);
-        header('location: index.php?modul=role');
         break;
 
       case 'update':
-        $role = $obj_role->getRoleById($id);
-        include 'view/role_list2.php';
+        $obj_role->editById($role_id);
         break;
 
       case 'edit':
@@ -56,18 +59,14 @@ switch ($model) {
           $desc = $_POST['role_description'];
           $status = $_POST['role_status'];
           $obj_role->updateRole($id, $name, $desc, $status);
-          header('location: index.php?modul=role');
-        } else {
-          $roles = $obj_role->getAllRoles();
-          include 'view/role_list2.php';
         }
         break;
 
       default:
-        $roles = $obj_role->getAllRoles();
-        include 'view/role_list2.php';
+        $obj_role->listRole();
         break;
     }
+    break;
   case "dataBarang":
 
     $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
@@ -80,20 +79,15 @@ switch ($model) {
           $harga = $_POST['hargaBarang'];
           $total = $_POST['totalBarang'];
           $obj_barang->addBarang($nama, $harga, $total);
-          header('location: index.php?modul=dataBarang');
-        } else {
-          include 'view/barang_input.php';
         }
         break;
 
       case 'delete':
         $obj_barang->deleteBarang($id);
-        header('location: index.php?modul=dataBarang');
         break;
 
       case 'updateBarang':
-        $barang = $obj_barang->getBarangById($id);
-        include 'view/barang_list2.php';
+        $obj_barang->editById($id);
         break;
 
       case 'editBarang':
@@ -103,16 +97,14 @@ switch ($model) {
           $harga = $_POST['hargaBarang'];
           $total = $_POST['totalBarang'];
           $obj_barang->updateBarang($id, $nama, $harga, $total);
-          header('location: index.php?modul=dataBarang');
-        } else {
-          include 'view/barang_list2.php';
         }
         break;
       default:
-        $barangs = $obj_barang->getAllBarang();
-        include 'view/barang_list2.php';
+        $obj_barang->listBarang();
         break;
     }
+    break;
+
   case 'dataUser':
 
     $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
@@ -124,27 +116,16 @@ switch ($model) {
           $username = $_POST['username'];
           $password = $_POST['password'];
           $role_name = $_POST['role_name'];
-          $role = $obj_role->getRoleByName($role_name);
-          $obj_user->addUser($username, $password, $role);
-          header('location: index.php?modul=dataUser');
-        } else {
-          $roles = $obj_role->getAllRoles();
-          echo "<pre>";
-          print_r($roles);
-          echo "</pre>";
-          include 'view/user_input.php';
+          $obj_user->addUser($username, $password, $role_name, $name);
         }
         break;
 
       case 'deleteUser':
         $obj_user->deleteUser($id);
-        header('Location: index.php?modul=dataUser');
         break;
 
       case 'updateUser':
-        $roles = $obj_role->getAllRoles();
-        $user = $obj_user->getUserByid($id);
-        include 'view/user_list2.php';
+        $obj_user->getUserByid($id);
         break;
 
       case 'editUser':
@@ -154,25 +135,60 @@ switch ($model) {
           $password = $_POST['password'];
           $role_name = $_POST['role_name'];
           $role = $obj_role->getRoleByName($role_name);
-
-          $updated = $obj_user->updateUser($idUser, $username, $password, $role);
-          if ($updated) {
-            header("Location: index.php?modul=dataUser&success=updated");
-          } else {
-            echo "Failed to update user.";
-          }
-        } else {
-          $roles = $obj_role->getAllRoles();
-          $user = $obj_user->getUserByid($id);
-          include 'view/user_list2.php';
+          $obj_user->updateUser($idUser, $username, $password, $role, $name);
         }
         break;
-
-
       default:
-        $roles = $obj_role->getAllRoles();
-        $users = $obj_user->getAllUsers();
-        include 'view/user_list2.php';
+        $users = $obj_user->listUsers();
         break;
     }
+    break;
+  case 'transaksi':
+    $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
+    switch ($fitur) {
+      case 'add':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $customer_name = $_POST['customer'];
+          $Customer = $obj_user->getUserByName($customer_name);
+          $Kasir = $obj_user->getUserByid(1);
+          $barang = $_POST['barang'];
+          $jumlah = $_POST['jumlah'];
+
+          $obj_barangs = [];
+          foreach ($barang as $key => $item) {
+            $obj_barangs[] = $obj_barang->getBarangById($item);
+          }
+          $obj_transaksi->addTransaksi($obj_barangs, $jumlah, $Customer, $Kasir);
+        } else {
+          $barangs = $obj_barang->getAllBarang();
+          $customers = $obj_user->getUsers();
+          include 'view/transaksi_input.php';
+        }
+      default:
+        $obj_transaksi->listTransaksi();
+        break;
+    }
+    break;
+  case "auth":
+    $authController = new AuthController();
+    $action = isset($_GET['action']) ? $_GET['action'] : 'login';
+
+    switch ($action) {
+      case 'login':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $username = $_POST['username'];
+          $password = $_POST['password'];
+          $authController->login($username, $password);
+        } else {
+          include 'view/login.php';
+        }
+        break;
+      case 'logout':
+        $authController->logout();
+        break;
+      default:
+        include 'view/login.php';
+        break;
+    }
+    break;
 }
